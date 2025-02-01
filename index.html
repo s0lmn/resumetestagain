@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leinard's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon-16x16.png">
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header>
+    <!-- Ribbon Navigation -->
+    <nav class="ribbon">
+      <a href="#Home" title="Home"><a href="#Home" title="Home"><i class="fa-solid fa-house"></i></a></a>
+      <a href="#Background" title="Background"><a href="#Background" title="Background"><i class="fa-solid fa-user"></i></a></a>
+      <a href="#education" title="Education"><a href="#education" title="Education"><i class="fa-solid fa-graduation-cap"></i></a></a>
+      <a href="#skills" title="Skills"><a href="#skills" title="Skills"><i class="fa-solid fa-gears"></i></a></a>
+      <a href="#certandawards" title="Certifications & Awards"><a href="#certandawards" title="Certifications & Awards"><i class="fa-solid fa-award"></i></a>
+    </nav>
+    <!-- Banner Image with fixed height and reactive width -->
+    <img class="banner" src="img/website resume portfolio cropped.png" alt="Leinard's Portfolio Banner">
+  </header>
+
+  <section id="Home">
+    <h2 class="section-heading">Resume of Petrola Sean Leinard Biescas</h2>
+    <p class="home-text">TWelcome to the meticulously crafted online resume of Sean Leinard, a dynamic and aspiring professional with a keen interest in data-driven innovation. This portfolio was thoughtfully developed with the assistance of ChatGPT to showcase my achievements, skills, and experiences. Navigate effortlessly using the icons above to explore my journey.</p>
+  </section>
+
+  <section id="Summary">
+    <h2 class="section-heading">Summary</h2>
+    <div class="summary-container">
+      <div class="summary-item">
+        <img src="img/smiling with dr.jpeg" alt="Diploma in CBE">
+        <p>Diploma in CBE</p>
+      </div>
+      <div class="summary-item">
+        <img src="img/BMT.jpeg" alt="NS in SPF">
+        <p>NS in SPF</p>
+      </div>
+      <div class="summary-item">
+        <img src="img/passion.jpeg" alt="Passion">
+        <p>Passion</p>
+      </div>
+      <div class="summary-item">
+        <img src="img/on the podium.jpeg" alt="What I Have Done So Far">
+        <p>What I Have Done So Far</p>
+      </div>
+    </div>    
+  </section>
+
+  <section id="Background">
+    <h2 class="section-heading">Background</h2>
+    <h3>Personality</h3>
+    <div class="background-item">
+      <p class="textstyle">A highly motivated and intellectually curious individual with a strong analytical mindset, continuously striving to expand my knowledge and deepen my understanding across various domains. Passionate about uncovering insights, solving complex challenges, and applying critical thinking to real-world scenarios.</p>
+      <img src="img/on the podium.jpeg" alt="Personality">
+    </div>
+    <h3>Passion</h3>
+    <div class="background-item">
+      <p class="textstyle">I thrive on tackling intricate problems and devising innovative solutions, particularly within the realms of data science, artificial intelligence, and emerging technologies. Engaging in hands-on projects allows me to refine my technical expertise while fostering creativity and adaptability in an ever-evolving digital landscape.</p>
+      <img src="img/on the podium.jpeg" alt="Passion">
+    </div>
+    <h3>Timeline of Work Experience</h3>
+    <div class="timeline">
+      <!-- More recent milestone on top -->
+      <div class="timeline-item" onclick="showDetails('spf')">
+        <div class="timeline-circle">
+          <span class="year">Sep 2024 - Present</span>
+        </div>
+        <div class="timeline-box">
+          Singapore Police Force
+        </div>
+      </div>
+      <div class="timeline-item" onclick="showDetails('bmt')">
+        <div class="timeline-circle">
+          <span class="year">Jul 2024 - Sep 2024</span>
+        </div>
+        <div class="timeline-box">
+          Basic Military Training
+        </div>
+      </div>
+      <div class="timeline-item" onclick="showDetails('intern')">
+        <div class="timeline-circle">
+          <span class="year">Sep 2023 - Mar 2024</span>
+        </div>
+        <div class="timeline-box">
+          Intern Fragrance Lab Support
+        </div>
+      </div>
+      <div class="timeline-item" onclick="showDetails('retail')">
+        <div class="timeline-circle">
+          <span class="year">Jun 2023 - Sep 2023</span>
+        </div>
+        <div class="timeline-box">
+          Retail Assistant
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2 class="section-heading">Education</h2>
+    <ul class="education-list">
+      <li class="textstyle">Ngee Ann Polytechnic – Majoring in Chemical & Biomolecular Engineering while complementing my expertise with a Diploma in Data Analytics & Artificial Intelligence, equipping me with interdisciplinary proficiency in engineering principles and data-driven methodologies.</li>
+      <li class="textstyle">Yishun Secondary School – Developed a strong foundation in mathematics, science, and analytical reasoning, preparing me for my future academic and professional endeavors.</li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-heading">Skills</h2>
+    <div class="skills-container">
+      <!-- Art Subsection -->
+      <div class="skills-subsection">
+        <h3>Art</h3>
+        <div class="image-slider" id="slider-art">
+          <button class="arrow left-arrow" onclick="prevImageArt()">⬅</button>
+          <div class="slider-content">
+            <img id="art-img" class="photoshop-img" src="img/CBE JACKETSHIRT.png" alt="Art Image 1">
+            <p id="art-caption" class="slider-caption">Art Caption 1</p>
+          </div>
+          <button class="arrow right-arrow" onclick="nextImageArt()">➡</button>
+        </div>
+      </div>
+      <!-- STEM Subsection -->
+      <div class="skills-subsection">
+        <h3>STEM</h3>
+        <div class="image-slider" id="slider-stem">
+          <button class="arrow left-arrow" onclick="prevImageSTEM()">⬅</button>
+          <div class="slider-content">
+            <video id="stem-video" class="photoshop-img" width="300" height="180" controls>
+              <source src="" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p id="stem-caption" class="slider-caption">STEM Caption 1</p>
+          </div>
+          <button class="arrow right-arrow" onclick="nextImageSTEM()">➡</button>
+        </div>
+      </div>      
+    </div>
+  </section>
+  <section id="certandawards">
+    <h2 class="section-heading">Certifications & Awards</h2>
+    <div class="cert-item">
+      <p class="textstyle">Intern Special Award: Achieved distinguished recognition for demonstrating exceptional performance, unwavering dedication, and a results-oriented mindset during my internship at XYZ Company. This award highlights my ability to exceed expectations, contribute meaningfully to projects, and deliver tangible outcomes in a fast-paced, professional environment.</p>
+      <img src="img/passion.jpeg" alt="Intern Special Award">
+    </div>
+    <div class="cert-item">
+      <p class="textstyle">Ngee Ann Taekwondo POL-ITE Competition: Earned a commendable 2nd place victory in a highly competitive regional Taekwondo tournament, showcasing my commitment to discipline, resilience, and continuous self-improvement. This achievement reflects my perseverance, strategic thinking, and ability to excel under pressure.</p>
+      <img src="img/on the podium.jpeg" alt="Ngee Ann Taekwondo Polite Competition">
+    </div>
+    <div class="cert-item">
+      <p class="textstyle">Industry Immersion Programme: Successfully completed an intensive 6-month-long industry immersion program with a specialized focus on data analytics and artificial intelligence. This experience enabled me to gain hands-on exposure to industry-standard technologies, analytical methodologies, and problem-solving techniques, solidifying my ability to translate theoretical knowledge into impactful, real-world applications.</p>
+      <img src="img/machine learning attempt.png" alt="Industry Immersion Programme">
+    </div>
+  </section>
+
+  <section id="referee">
+    <h2 class="section-heading">Referees</h2>
+    <p class="textstyle">Available upon request</p>
+  </section>
+
+  <!-- Popup for Timeline Milestones -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <!-- Popup image -->
+      <img id="popup-image" src="" alt="Milestone Image">
+      <p id="popup-text"></p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

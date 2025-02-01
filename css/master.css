@@ -1,0 +1,369 @@
+/* ------------------------------
+   Global Reset and Base Styles
+------------------------------- */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h3 {
+  margin-bottom: 5px; /* Reduce space between subheadings and paragraphs */
+}
+
+.textstyle {
+  margin-top: 0; /* Eliminate extra space above the paragraph */
+}
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000000; /* Entire site background black */
+  color: #e0e0e0;
+  padding: 20px;
+}
+
+/* Headings: White and Bold */
+h1, h2, h3 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+h2 {
+  font-size:30px;
+}
+
+/* -----------------------
+   Ribbon Navigation
+------------------------- */
+.ribbon {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: #130b0c; /* Dark Rose Gold */
+  border-bottom: 2px solid #D6B29C; /* Rose Gold line */
+  z-index: 1000;
+}
+.ribbon a {
+  text-decoration: none;
+  font-size: 24px;
+  padding: 5px;
+  /* The icons will display in white; if needed, they can have a mix of black details via the emoji themselves */
+  color: #ffffff;
+  transition: transform 0.3s ease-in-out;
+}
+.ribbon a:hover {
+  transform: scale(1.2);
+}
+
+/* -----------------------
+   Banner Image
+------------------------- */
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  height: 200px; /* fixed height */
+  margin: 80px auto 20px auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* -----------------------
+   Section Styling
+------------------------- */
+section {
+  background: none;
+  margin: 20px 0;
+  padding: 10px 0;
+}
+.section-heading {
+  margin-bottom: 15px;
+}
+
+/* -----------------------
+   Home Section
+------------------------- */
+#Home .home-text {
+  text-align: left;
+}
+
+#Home .section-heading {
+  font-size: 38px; /* Increase title size */
+  color: #D6B29C;
+}
+
+/* -----------------------
+   Summary Section
+------------------------- */
+.summary-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  text-align: center;
+  width: 220px; /* Adjust width to ensure all items have equal size */
+}
+
+.summary-item img {
+  width: 220px; /* Fixed width */
+  height: 150px; /* Fixed height (shorter than width) */
+  object-fit: cover; /* Ensures all images fit within the dimensions */
+  border-radius: 10px; /* Optional rounded corners */
+}
+
+/* -----------------------
+   Background Section
+------------------------- */
+
+.background-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.background-item img {
+  width: auto; /* Keeps aspect ratio */
+  height: 200px; /* Fixed height */
+  max-width: 100%; /* Prevents overflow */
+  object-fit: cover; /* Ensures the image fills the space properly */
+  border-radius: 10px; /* Optional rounded corners */
+}
+
+/* -----------------------
+   Timeline Styling
+------------------------- */
+.timeline {
+  position: relative;
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%; /* Center the vertical line */
+  top: 0;
+  bottom: 0;
+  width: 4px; /* Thicker vertical line */
+  background: #D6B29C; /* Rose Gold line */
+  transform: translateX(-50%); /* Adjust to center the line */
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  cursor: pointer;
+  width: 100%; /* Ensure the item takes full width */
+  position: relative;
+}
+
+.timeline-circle {
+  width: 60px; /* Same width as before */
+  height: 60px; /* Same height as before */
+  border-radius: 10px; /* Rounded rectangle instead of circle */
+  background: #000000;
+  border: 4px solid #D6B29C; /* Thicker Rose Gold outline */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  left: 50%; /* Center the rectangle */
+  transform: translateX(-50%); /* Adjust to center the rectangle */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.timeline-circle span {
+  display: block;
+  text-align: center;
+  font-size: 10px; /* Smaller text to fit inside the rectangle */
+  word-wrap: break-word;
+  padding: 2px;
+  color: #e0e0e0; /* Default text color */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.timeline-circle:hover {
+  background: #D6B29C; /* Change background on hover */
+  border-color: #ffffff; /* Change border color on hover */
+}
+
+.timeline-circle:hover span {
+  color: #000000; /* Change text color on hover */
+  font-size: 12px; /* Slightly increase text size on hover */
+}
+
+.timeline-box {
+  background: #313031;
+  padding: 10px 15px;
+  margin-left: 40px; /* Adjust margin to position the box to the right of the rectangle */
+  border: 2px solid #D6B29C; /* Rose Gold outline */
+  border-radius: 5px;
+  color: #e0e0e0;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  left: 50%; /* Center the box relative to the timeline */
+  transform: translateX(20px); /* Adjust to position the box to the right */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.timeline-box:hover {
+  background: #D6B29C; /* Change background on hover */
+  border-color: #ffffff; /* Change border color on hover */
+  color: #000000; /* Change text color on hover */
+}
+
+/* -----------------------
+   Education Section
+------------------------- */
+.education-list {
+  list-style: none;
+  text-align: left;
+}
+
+/* -----------------------
+   Skills Section
+------------------------- */
+.skills-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.skills-subsection {
+  background: #313031;
+  padding: 20px;
+  border: 1px solid #D6B29C; /* Rose Gold outline */
+  border-radius: 10px;
+  width: 45%;
+  text-align: center;
+}
+
+.image-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 15px;
+  width: 100%;
+}
+
+.slider-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px; /* Adjust width as needed */
+}
+
+.photoshop-img, video {
+  width: auto; /* Keeps aspect ratio */
+  height: 400px; /* Fixed height */
+  max-width: 100%; /* Prevents overflow */
+  object-fit: cover; /* Ensures content fills the area */
+  border-radius: 10px; /* Optional rounded corners */
+}
+
+.arrow {
+  background-color: #B76E79cc;
+  color: black;
+  font-size: 24px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: #A8C3B3;
+}
+
+/* -----------------------
+   Certifications & Awards Section
+------------------------- */
+.cert-item {
+  display: flex;
+  flex-direction: row; /* Image on the right, text on the left */
+  align-items: center;
+  gap: 10px; /* Maintain readability */
+  margin-bottom: 10px; /* Provide a little vertical gap between each entry */
+}
+
+.cert-item img {
+  width: 150px; /* Adjust as needed */
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* -----------------------
+   Popup for Timeline Milestones
+------------------------- */
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #F0C8BE; /* Lighter Rose Gold */
+  padding: 20px;
+  border-radius: 10px;
+  color: #000000;
+  z-index: 1001;
+}
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+.popup-content {
+  position: relative;
+  text-align: center;
+}
+.popup-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
