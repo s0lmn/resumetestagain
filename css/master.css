@@ -43,25 +43,48 @@ h2 {
 .ribbon {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 15px;
-  padding: 10px;
-  background-color: #130b0c; /* Dark Rose Gold */
-  border-bottom: 2px solid #D6B29C; /* Rose Gold line */
+  align-items: center;
+  flex-wrap: wrap;              /* wraps icons on very small screens */
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #130b0c;
+  border-bottom: 2px solid #D6B29C;
   z-index: 1000;
 }
+
+/* The unclosed <a> in the HTML causes the browser to leak all page sections
+   into the ribbon as flex children, shifting the icons off-centre.
+   Hide every direct child that is NOT an <a> so they take up zero space. */
+.ribbon > :not(a) {
+  display: none !important;
+}
+ 
 .ribbon a {
   text-decoration: none;
   font-size: 24px;
-  padding: 5px;
-  /* The icons will display in white; if needed, they can have a mix of black details via the emoji themselves */
+  padding: 5px 10px;
   color: #ffffff;
   transition: transform 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+ 
 .ribbon a:hover {
   transform: scale(1.2);
+}
+ 
+/* Responsive: shrink icon size on small screens */
+@media (max-width: 480px) {
+  .ribbon a {
+    font-size: 20px;
+    padding: 4px 8px;
+  }
 }
 
 /* -----------------------
@@ -144,77 +167,92 @@ section {
 
 /* -----------------------
    Timeline Styling
+   Layout:
+     - .timeline uses align-items: center, so each .timeline-item is centred
+     - Each .timeline-item is (circle-size + gap + box-width) = 70 + 12 + 200 = 282px wide
+     - The circle occupies the first 70px of that row
+     - Circle centre = 35px from the item's left edge
+     - Item left edge within centred container = 50% - (282/2)px = 50% - 141px
+     - Line position = 50% - 141px + 35px = 50% - 106px
+     - With transform: translateX(-50%) on the 4px line, left = 50% - 106px + 2px = 50% - 104px
 ------------------------- */
 .timeline {
+  --circle-size: 70px;
+  --gap: 12px;
+  --box-width: 200px;
   position: relative;
   width: 80%;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
-
+ 
+/* Line runs through the horizontal centre of every .timeline-circle */
 .timeline::before {
   content: '';
   position: absolute;
-  left: 50%; /* Center the vertical line */
+  /* item total width = 70 + 12 + 200 = 282px
+     item left edge   = 50% - 141px
+     circle centre    = item left + 35px = 50% - 106px                */
+  left: calc(50% - 123px);
   top: 0;
   bottom: 0;
-  width: 4px; /* Thicker vertical line */
-  background: #D6B29C; /* Rose Gold line */
-  transform: translateX(-50%); /* Adjust to center the line */
+  width: 4px;
+  background: #D6B29C;
+  /* no translateX — left already points to circle centre, line width is cosmetic */
 }
-
+ 
+/* Each row: circle then box, pair is centred by parent align-items: center */
 .timeline-item {
   display: flex;
   align-items: center;
+  gap: var(--gap);
   margin-bottom: 30px;
   cursor: pointer;
-  width: 100%; /* Ensure the item takes full width */
   position: relative;
 }
-
+ 
+/* Circle */
 .timeline-circle {
-  width: 60px; /* Same width as before */
-  height: 60px; /* Same height as before */
-  border-radius: 10px; /* Rounded rectangle instead of circle */
+  flex-shrink: 0;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 10px;
   background: #000000;
-  border: 4px solid #D6B29C; /* Thicker Rose Gold outline */
+  border: 4px solid #D6B29C;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
-  position: absolute;
-  left: 50%; /* Center the rectangle */
-  transform: translateX(-50%); /* Adjust to center the rectangle */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  transition: all 0.3s ease;
 }
-
+ 
 .timeline-circle span {
   display: block;
   text-align: center;
-  font-size: 10px; /* Smaller text to fit inside the rectangle */
+  font-size: 10px;
   word-wrap: break-word;
   padding: 2px;
-  color: #e0e0e0; /* Default text color */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  color: #e0e0e0;
+  transition: all 0.3s ease;
 }
-
+ 
 .timeline-circle:hover {
-  background: #D6B29C; /* Change background on hover */
-  border-color: #ffffff; /* Change border color on hover */
+  background: #D6B29C;
+  border-color: #ffffff;
 }
-
+ 
 .timeline-circle:hover span {
-  color: #000000; /* Change text color on hover */
-  font-size: 12px; /* Slightly increase text size on hover */
+  color: #000000;
+  font-size: 12px;
 }
-
+ 
+/* Box: immediately to the right of the circle */
 .timeline-box {
   background: #313031;
   padding: 10px 15px;
-  margin-left: 40px; /* Adjust margin to position the box to the right of the rectangle */
-  border: 2px solid #D6B29C; /* Rose Gold outline */
+  border: 2px solid #D6B29C;
   border-radius: 5px;
   color: #e0e0e0;
   width: 200px;
@@ -223,18 +261,27 @@ section {
   align-items: center;
   justify-content: center;
   text-align: center;
-  position: relative;
-  left: 50%; /* Center the box relative to the timeline */
-  transform: translateX(20px); /* Adjust to position the box to the right */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  transition: all 0.3s ease;
 }
-
+ 
 .timeline-box:hover {
-  background: #D6B29C; /* Change background on hover */
-  border-color: #ffffff; /* Change border color on hover */
-  color: #000000; /* Change text color on hover */
+  background: #D6B29C;
+  border-color: #ffffff;
+  color: #000000;
 }
-
+ 
+/* Responsive: collapse to single column on narrow screens */
+@media (max-width: 600px) {
+  .timeline {
+    width: 95%;
+  }
+ 
+  .timeline-box {
+    width: 150px;
+    font-size: 13px;
+  }
+}
+ 
 /* -----------------------
    Education Section
 ------------------------- */
