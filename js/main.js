@@ -43,41 +43,56 @@ function prevImageArt() {
    STEM Section Image Slider
 ------------------------------ */
 const stemMedia = [
-  { type: "video", src: , caption: "Internship melt and cast soap" },
-  { type: "video", src: ", caption: "Soap Stamper" },
-  { type: "video", src: , caption: "Arduino" }
+  { type: "youtube", src: "https://youtu.be/akFraM2YRdc", caption: "Membrane Bioreactor Project" },
+  { type: "youtube", src: "https://youtu.be/ofYfKoLHQYM", caption: "Melt & Cast Soap Project" }
 ];
-
+ 
 let currentStemIndex = 0;
 const stemContainer = document.getElementById("slider-stem");
 const stemCaptionElement = document.getElementById("stem-caption");
-
+ 
+/* Convert a youtu.be short URL to a YouTube embed URL */
+function toYouTubeEmbed(url) {
+  // Handles: https://youtu.be/VIDEO_ID  or  https://youtu.be/VIDEO_ID?t=30
+  const match = url.match(/youtu\.be\/([^?&]+)/);
+  if (!match) return url; // fallback: return as-is if format unexpected
+  return "https://www.youtube.com/embed/" + match[1];
+}
+ 
 function updateStemSlider() {
   const media = stemMedia[currentStemIndex];
   let newContent;
-
-  if (media.type === "video") {
-    newContent = `<video id="stem-video" class="photoshop-img" width="300" height="180" controls>
-      <source src="${media.src}" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>`;
+ 
+  if (media.type === "youtube") {
+    const embedUrl = toYouTubeEmbed(media.src);
+    newContent = `<iframe
+      class="photoshop-img"
+      src="${embedUrl}"
+      style="width:100%;max-width:480px;height:270px;border:none;border-radius:10px;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy">
+    </iframe>`;
   } else {
     newContent = `<img id="stem-img" class="photoshop-img" src="${media.src}" alt="STEM Image">`;
   }
-
-  stemContainer.querySelector(".slider-content").innerHTML = newContent;
-  stemCaptionElement.innerText = media.caption;
+ 
+  stemContainer.querySelector(".slider-content").innerHTML =
+    newContent + `<p id="stem-caption" class="slider-caption">${media.caption}</p>`;
 }
-
+ 
 function nextImageSTEM() {
   currentStemIndex = (currentStemIndex + 1) % stemMedia.length;
   updateStemSlider();
 }
-
+ 
 function prevImageSTEM() {
   currentStemIndex = (currentStemIndex - 1 + stemMedia.length) % stemMedia.length;
   updateStemSlider();
 }
+ 
+// Initialise on load
+updateStemSlider();
 
 /* ---------------------------
    Popup for Timeline Milestones
