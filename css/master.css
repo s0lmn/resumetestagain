@@ -317,6 +317,7 @@ section {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .skills-subsection {
@@ -344,10 +345,12 @@ section {
   position: relative;
   gap: 15px;
   width: 100%;
+  min-height: 0;
 }
 
 .slider-content {
-  display: flex;
+  display: grid;
+  grid-template-rows: minmax(0,1fr) auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -357,7 +360,6 @@ section {
 
 .photoshop-img, video {
   width: auto;
-  height: 400px;
   max-width: 100%;
   object-fit: cover;
   border-radius: 10px;
@@ -399,6 +401,33 @@ section {
     width: 100%;
     aspect-ratio: 1 / 1;
   }
+}
+
+.media-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.media-wrapper:hover {
+  transform: scale(1.01);
+}
+
+.media-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* KEY: forces square */
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Target ALL media types */
+.media-wrapper img,
+.media-wrapper video,
+.media-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* KEY: crops nicely */
+  display: block;
+  border: none;
 }
 
 /* -----------------------
