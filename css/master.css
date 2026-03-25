@@ -12,17 +12,17 @@ body, h1, h2, h3, p, ul, li {
 }
 
 h3 {
-  margin-bottom: 5px; /* Reduce space between subheadings and paragraphs */
+  margin-bottom: 5px;
 }
 
 .textstyle {
-  margin-top: 0; /* Eliminate extra space above the paragraph */
+  margin-top: 0;
 }
 
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #000000; /* Entire site background black */
+  background-color: #000000;
   color: #e0e0e0;
   padding: 20px;
 }
@@ -34,7 +34,7 @@ h1, h2, h3 {
 }
 
 h2 {
-  font-size:30px;
+  font-size: 30px;
 }
 
 /* -----------------------
@@ -49,7 +49,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;              /* wraps icons on very small screens */
+  flex-wrap: wrap;
   gap: 10px;
   padding: 10px 20px;
   background-color: #130b0c;
@@ -63,7 +63,7 @@ h2 {
 .ribbon > :not(a) {
   display: none !important;
 }
- 
+
 .ribbon a {
   text-decoration: none;
   font-size: 24px;
@@ -74,11 +74,11 @@ h2 {
   align-items: center;
   justify-content: center;
 }
- 
+
 .ribbon a:hover {
   transform: scale(1.2);
 }
- 
+
 /* Responsive: shrink icon size on small screens */
 @media (max-width: 480px) {
   .ribbon a {
@@ -94,7 +94,7 @@ h2 {
   display: block;
   width: 100%;
   max-width: 1200px;
-  height: 200px; /* fixed height */
+  height: 200px;
   margin: 80px auto 20px auto;
   border-radius: 10px;
   object-fit: cover;
@@ -108,6 +108,7 @@ section {
   margin: 20px 0;
   padding: 10px 0;
 }
+
 .section-heading {
   margin-bottom: 15px;
 }
@@ -120,7 +121,7 @@ section {
 }
 
 #Home .section-heading {
-  font-size: 38px; /* Increase title size */
+  font-size: 38px;
   color: #D6B29C;
 }
 
@@ -136,20 +137,19 @@ section {
 
 .summary-item {
   text-align: center;
-  width: 220px; /* Adjust width to ensure all items have equal size */
+  width: 220px;
 }
 
 .summary-item img {
-  width: 220px; /* Fixed width */
-  height: 150px; /* Fixed height (shorter than width) */
-  object-fit: cover; /* Ensures all images fit within the dimensions */
-  border-radius: 10px; /* Optional rounded corners */
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* -----------------------
    Background Section
 ------------------------- */
-
 .background-item {
   display: flex;
   justify-content: space-between;
@@ -158,28 +158,25 @@ section {
 }
 
 .background-item img {
-  width: auto; /* Keeps aspect ratio */
-  height: 200px; /* Fixed height */
-  max-width: 100%; /* Prevents overflow */
-  object-fit: cover; /* Ensures the image fills the space properly */
-  border-radius: 10px; /* Optional rounded corners */
+  width: auto;
+  height: 200px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* -----------------------
    Timeline Styling
-   Layout:
-     - .timeline uses align-items: center, so each .timeline-item is centred
-     - Each .timeline-item is (circle-size + gap + box-width) = 70 + 12 + 200 = 282px wide
-     - The circle occupies the first 70px of that row
-     - Circle centre = 35px from the item's left edge
-     - Item left edge within centred container = 50% - (282/2)px = 50% - 141px
-     - Line position = 50% - 141px + 35px = 50% - 106px
-     - With transform: translateX(-50%) on the 4px line, left = 50% - 106px + 2px = 50% - 104px
+   The vertical line is anchored to .timeline-circle::before at left:50%
+   so it always pierces the circle centre regardless of screen width.
+   No external pixel calculation needed.
 ------------------------- */
 .timeline {
   --circle-size: 70px;
   --gap: 12px;
   --box-width: 200px;
+  --line-width: 4px;
+  --connector-gap:30px;
   position: relative;
   width: 80%;
   margin: 20px auto;
@@ -187,22 +184,7 @@ section {
   flex-direction: column;
   align-items: center;
 }
- 
-/* Line runs through the horizontal centre of every .timeline-circle */
-.timeline::before {
-  content: '';
-  position: absolute;
-  /* item total width = 70 + 12 + 200 = 282px
-     item left edge   = 50% - 141px
-     circle centre    = item left + 35px = 50% - 106px                */
-  left: calc(50% - 123px);
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: #D6B29C;
-  /* no translateX — left already points to circle centre, line width is cosmetic */
-}
- 
+
 /* Each row: circle then box, pair is centred by parent align-items: center */
 .timeline-item {
   display: flex;
@@ -212,9 +194,10 @@ section {
   cursor: pointer;
   position: relative;
 }
- 
+
 /* Circle */
 .timeline-circle {
+  position: relative;        /* required: anchors ::before to this element */
   flex-shrink: 0;
   width: var(--circle-size);
   height: var(--circle-size);
@@ -224,10 +207,46 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   transition: all 0.3s ease;
 }
- 
+
+/* Vertical line drawn from inside the circle — always centred on it.
+   Extends upward and downward by the row's margin-bottom (30px) to
+   bridge the gap between consecutive circles.                        */
+.timeline-circle::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(-1 * var(--connector-gap));
+  bottom: calc(-1 * var(--connector-gap));
+  width: var(--line-width);
+
+  background: linear-gradient(
+    to bottom,
+    #D6B29C 0,
+    #D6B29C calc(50% - (var(--circle-size) / 2)),
+    transparent calc(50% - (var(--circle-size) / 2)),
+    transparent calc(50% + (var(--circle-size) / 2)),
+    #D6B29C calc(50% + (var(--circle-size) / 2)),
+    #D6B29C 100%
+  );
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* First circle: line starts at the circle top, not above it */
+.timeline-item:first-child .timeline-circle::before {
+  top: 10;
+}
+
+/* Last circle: line ends at the circle bottom, not below it */
+.timeline-item:last-child .timeline-circle::before {
+  bottom: -10;
+}
+
 .timeline-circle span {
   display: block;
   text-align: center;
@@ -237,17 +256,17 @@ section {
   color: #e0e0e0;
   transition: all 0.3s ease;
 }
- 
+
 .timeline-circle:hover {
   background: #D6B29C;
   border-color: #ffffff;
 }
- 
+
 .timeline-circle:hover span {
   color: #000000;
   font-size: 12px;
 }
- 
+
 /* Box: immediately to the right of the circle */
 .timeline-box {
   background: #313031;
@@ -263,25 +282,25 @@ section {
   text-align: center;
   transition: all 0.3s ease;
 }
- 
+
 .timeline-box:hover {
   background: #D6B29C;
   border-color: #ffffff;
   color: #000000;
 }
- 
+
 /* Responsive: collapse to single column on narrow screens */
 @media (max-width: 600px) {
   .timeline {
     width: 95%;
   }
- 
+
   .timeline-box {
     width: 150px;
     font-size: 13px;
   }
 }
- 
+
 /* -----------------------
    Education Section
 ------------------------- */
@@ -302,7 +321,7 @@ section {
 .skills-subsection {
   background: #313031;
   padding: 20px;
-  border: 1px solid #D6B29C; /* Rose Gold outline */
+  border: 1px solid #D6B29C;
   border-radius: 10px;
   width: 45%;
   text-align: center;
@@ -322,15 +341,15 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 500px; /* Adjust width as needed */
+  max-width: 500px;
 }
 
 .photoshop-img, video {
-  width: auto; /* Keeps aspect ratio */
-  height: 400px; /* Fixed height */
-  max-width: 100%; /* Prevents overflow */
-  object-fit: cover; /* Ensures content fills the area */
-  border-radius: 10px; /* Optional rounded corners */
+  width: auto;
+  height: 400px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .arrow {
@@ -364,14 +383,14 @@ section {
 ------------------------- */
 .cert-item {
   display: flex;
-  flex-direction: row; /* Image on the right, text on the left */
+  flex-direction: row;
   align-items: center;
-  gap: 10px; /* Maintain readability */
-  margin-bottom: 10px; /* Provide a little vertical gap between each entry */
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .cert-item img {
-  width: 150px; /* Adjust as needed */
+  width: 150px;
   height: auto;
   object-fit: cover;
   border-radius: 10px;
@@ -388,26 +407,30 @@ section {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #F0C8BE; /* Lighter Rose Gold */
+  background: #F0C8BE;
   padding: 20px;
   border-radius: 10px;
   color: #000000;
   z-index: 1001;
 }
+
 .popup.show {
   opacity: 1;
   visibility: visible;
 }
+
 .popup-content {
   position: relative;
   text-align: center;
 }
+
 .popup-content img {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
 .close {
   position: absolute;
   top: 10px;
